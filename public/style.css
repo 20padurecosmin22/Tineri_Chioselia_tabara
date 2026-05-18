@@ -647,9 +647,28 @@ input, textarea, select { font-family: inherit; font-size: 1rem; outline: none; 
 .cat-option-label:hover { border-color: var(--primary); background: var(--primary-light); color: var(--primary-dark); }
 .cat-option:checked + .cat-option-label {
   border-color: var(--primary);
-  background: var(--primary-light);
-  color: var(--primary-dark);
-  box-shadow: 0 0 0 3px rgba(37,99,235,.1);
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 0 0 3px rgba(37,99,235,.18);
+  transform: scale(1.04);
+  position: relative;
+}
+.cat-option:checked + .cat-option-label::after {
+  content: '✓';
+  position: absolute;
+  top: .25rem;
+  right: .35rem;
+  font-size: .65rem;
+  font-weight: 900;
+  background: #fff;
+  color: var(--primary);
+  border-radius: 50%;
+  width: 1rem;
+  height: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
 }
 
 /* ─── ADMIN ─── */

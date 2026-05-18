@@ -30,6 +30,7 @@
       </div>
       <span id="header-user-chip" class="user-chip" style="display:none"></span>
       <button id="header-login-btn" class="btn btn-header-secondary" onclick="App.showLoginModal('', onLoginSuccess)" data-i18n="btn_login">Autentificare</button>
+      <a href="admin.html" id="header-dashboard-btn" class="btn btn-header-secondary" style="display:none" data-i18n="btn_dashboard">Dashboard</a>
       <a href="propune.html" id="header-propose-btn" class="btn btn-primary" style="display:none" data-i18n="btn_propose">+ Propune</a>
       <button id="header-logout-btn" class="btn btn-secondary" onclick="App.handleLogout()" style="display:none" data-i18n="btn_logout">Ieși</button>
     </div>
@@ -159,8 +160,11 @@ async function loadIdeas() {
 function renderPage() {
   const count = allIdeas.length;
   const user = App.getCurrentUser();
+  const countLabel = count === 1
+    ? i18n.t('ideas_count_one')
+    : i18n.t('ideas_count_many').replace('{n}', count);
   document.getElementById('ideas-count').textContent =
-    `${count === 1 ? '1 idee' : count + ' idei'} în ${user && user.camp_name ? user.camp_name : i18n.t('your_camp')}`;
+    `${countLabel} ${user && user.camp_name ? user.camp_name : i18n.t('your_camp')}`;
   App.renderIdeas(allIdeas, 'ideas-grid', votedIds);
 }
 

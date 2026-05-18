@@ -104,7 +104,10 @@ function getCategoryInfo(category) {
 }
 
 function formatDate(value) {
-  const date = new Date(value);
+  // SQLite datetime('now') returns "YYYY-MM-DD HH:MM:SS" in UTC — normalize to ISO
+  const normalized = value ? String(value).replace(' ', 'T').replace(/(\d{2}:\d{2}:\d{2})$/, '$1Z') : value;
+  const date = new Date(normalized);
+  if (isNaN(date.getTime())) return value;
   const now = new Date();
   const diff = Math.floor((now - date) / 1000);
   if (diff < 60) return i18n.t('date_just_now');
@@ -388,6 +391,7 @@ async function submitRegisterForm(event) {
 function updateHeaderAuth() {
   const loginButton = document.getElementById('header-login-btn');
   const logoutButton = document.getElementById('header-logout-btn');
+  const dashboardButton = document.getElementById('header-dashboard-btn');
   const chip = document.getElementById('header-user-chip');
   const user = getCurrentUser();
   if (user) {
@@ -396,11 +400,13 @@ function updateHeaderAuth() {
     if (chip) {
       chip.style.display = 'flex';
       const initial = user.name ? user.name[0].toUpperCase() : '?';
-      chip.innerHTML = `<div class="user-avatar">${escapeHtml(initial)}</div><span>${escapeHtml(user.name)} · ${escapeHtml(user.camp_code || '')}</span>`;
+      chip.innerHTML = `<div class="user-avatar">${escapeHtml(initial)}</div><span>${escapeHtml(user.name)}</span>`;
     }
+    if (dashboardButton) dashboardButton.style.display = user.role === 'camp_admin' ? 'inline-flex' : 'none';
   } else {
     if (loginButton) loginButton.style.display = 'inline-flex';
     if (logoutButton) logoutButton.style.display = 'none';
+    if (dashboardButton) dashboardButton.style.display = 'none';
     if (chip) chip.style.display = 'none';
   }
 }

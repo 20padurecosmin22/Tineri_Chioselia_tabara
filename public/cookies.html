@@ -79,9 +79,9 @@
       <p data-i18n="cookies_p7">Prin apăsarea „Acceptă toate" ești de acord cu stocarea preferințelor locale (limbă, voturi). Sesiunea de autentificare este necesară pentru funcționarea platformei și nu poate fi dezactivată.</p>
 
       <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.25rem">
-        <button class="btn btn-success" onclick="CookieConsent.accept();this.textContent='✅ Salvat!'">Acceptă toate</button>
-        <button class="btn btn-secondary" onclick="CookieConsent.necessary();this.textContent='✅ Salvat!'">Doar necesare</button>
-        <button class="btn btn-ghost" onclick="CookieConsent.reset();this.textContent='✅ Resetat!'">Resetează preferința</button>
+        <button class="btn btn-success" data-i18n="cookie_accept" onclick="CookieConsent.accept();this.textContent=i18n.t('cookie_saved')">Acceptă toate</button>
+        <button class="btn btn-secondary" data-i18n="cookie_necessary" onclick="CookieConsent.necessary();this.textContent=i18n.t('cookie_saved')">Doar necesare</button>
+        <button class="btn btn-ghost" data-i18n="cookie_reset" onclick="CookieConsent.reset();this.textContent=i18n.t('cookie_reset_done')">Resetează preferința</button>
       </div>
 
       <h2 data-i18n="cookies_s7">7. Modificări</h2>

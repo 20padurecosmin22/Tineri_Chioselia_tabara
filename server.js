@@ -399,7 +399,12 @@ app.get('/api/admin/users', campAdminMiddleware, (req, res) => {
     FROM users
     WHERE camp_code = ?
     ORDER BY role DESC, datetime(created_at) DESC
-  `).all(req.user.camp_code);
+  `).all(req.user.camp_code).map((u) => ({
+    ...u,
+    full_name: decryptField(u.full_name),
+    email: decryptField(u.email),
+    phone: decryptField(u.phone),
+  }));
   res.json(users);
 });
 

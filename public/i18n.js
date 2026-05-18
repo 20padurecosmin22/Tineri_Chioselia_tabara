@@ -4,7 +4,7 @@
   var T = {
     ro: {
       header_subtitle: 'Planifică · Organizează · Distrează-te',
-      btn_login: 'Autentificare', btn_propose: '+ Propune', btn_logout: 'Ieși',
+      btn_login: 'Autentificare', btn_propose: '+ Propune', btn_logout: 'Ieși', btn_dashboard: 'Dashboard',
       btn_back: '← Înapoi', btn_main: 'Pagina principală',
       hero_p: 'Planifică activitățile taberei tale împreună',
       auth_gate_h2: 'Intră în comunitatea taberei tale',
@@ -192,6 +192,8 @@
       cat_sport_short: 'Sport', cat_muzica_short: 'Muzică', cat_altele_short: 'Altele',
       toast_welcome: 'Bun venit, {name}!', toast_welcome_camp: 'Ai intrat în {name}.',
       your_camp: 'tabăra ta', toast_logged_out: 'Ai fost deconectat.',
+      ideas_count_one: '1 idee în', ideas_count_many: '{n} idei în',
+      cookie_reset: 'Resetează preferința', cookie_saved: '✅ Salvat!', cookie_reset_done: '✅ Resetat!',
       err_no_connection: 'Nu se poate conecta la server.', err_server: 'Eroare server.',
       priv_p8a: 'Pentru orice solicitare, contactează administratorul taberei tale sau fondatorul platformei prin pagina',
       terms_p12a: 'Pentru orice întrebare legată de acești termeni, contactează-ne prin pagina',
@@ -235,7 +237,7 @@
 
     ru: {
       header_subtitle: 'Планируй · Организуй · Веселись',
-      btn_login: 'Войти', btn_propose: '+ Предложить', btn_logout: 'Выйти',
+      btn_login: 'Войти', btn_propose: '+ Предложить', btn_logout: 'Выйти', btn_dashboard: 'Панель',
       btn_back: '← Назад', btn_main: 'Главная страница',
       hero_p: 'Планируй активности своего лагеря вместе',
       auth_gate_h2: 'Войди в сообщество своего лагеря',
@@ -423,6 +425,8 @@
       cat_sport_short: 'Спорт', cat_muzica_short: 'Музыка', cat_altele_short: 'Прочее',
       toast_welcome: 'Добро пожаловать, {name}!', toast_welcome_camp: 'Ты в лагере {name}.',
       your_camp: 'своём лагере', toast_logged_out: 'Ты вышел из системы.',
+      ideas_count_one: '1 идея в', ideas_count_many: '{n} идей в',
+      cookie_reset: 'Сбросить настройки', cookie_saved: '✅ Сохранено!', cookie_reset_done: '✅ Сброшено!',
       err_no_connection: 'Нет связи с сервером.', err_server: 'Ошибка сервера.',
       priv_p8a: 'По любому запросу обратись к администратору лагеря или основателю платформы через страницу',
       terms_p12a: 'По вопросам условий свяжись с нами через страницу',
@@ -466,7 +470,7 @@
 
     en: {
       header_subtitle: 'Plan · Organise · Have Fun',
-      btn_login: 'Sign In', btn_propose: '+ Suggest', btn_logout: 'Sign Out',
+      btn_login: 'Sign In', btn_propose: '+ Suggest', btn_logout: 'Sign Out', btn_dashboard: 'Dashboard',
       btn_back: '← Back', btn_main: 'Home Page',
       hero_p: 'Plan your camp activities together',
       auth_gate_h2: 'Join your camp community',
@@ -654,6 +658,8 @@
       cat_sport_short: 'Sport', cat_muzica_short: 'Music', cat_altele_short: 'Other',
       toast_welcome: 'Welcome, {name}!', toast_welcome_camp: 'You have joined {name}.',
       your_camp: 'your camp', toast_logged_out: 'You have been signed out.',
+      ideas_count_one: '1 idea in', ideas_count_many: '{n} ideas in',
+      cookie_reset: 'Reset preference', cookie_saved: '✅ Saved!', cookie_reset_done: '✅ Reset!',
       err_no_connection: 'Cannot connect to server.', err_server: 'Server error.',
       priv_p8a: 'For any request, contact your camp administrator or the platform founder through the page',
       terms_p12a: 'For any questions about these terms, contact us through the page',

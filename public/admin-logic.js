@@ -1,5 +1,6 @@
 let adminToken = null;
 let currentIdeaStatus = 'toate';
+let _timeRefreshInterval = null;
 
 document.addEventListener('DOMContentLoaded', function () {
   const token = App.getToken();
@@ -89,6 +90,7 @@ async function handleCampCreate(event) {
 }
 
 function adminLogout() {
+  clearInterval(_timeRefreshInterval);
   App.clearToken();
   adminToken = null;
   document.getElementById('admin-dashboard').style.display = 'none';
@@ -104,6 +106,8 @@ async function showDashboard() {
   document.getElementById('admin-camp-subtitle').textContent = `${user.camp_name || 'Tabara'} · ${user.camp_code || ''}`;
   document.getElementById('admin-user-chip').innerHTML = `<div class="user-avatar">${App.escapeHtml((user.name || '?')[0].toUpperCase())}</div><span>${App.escapeHtml(user.name || '')}</span>`;
   await loadDashboard();
+  clearInterval(_timeRefreshInterval);
+  _timeRefreshInterval = setInterval(refreshTimestamps, 30000);
 }
 
 async function loadDashboard() {
@@ -160,7 +164,7 @@ function renderUsers(users) {
         <td><strong>${App.escapeHtml(user.name)}</strong><br><span style="color:var(--text-muted);font-size:.8rem">${App.escapeHtml(user.camp_code || '')}</span></td>
         <td>${App.escapeHtml(role)}</td>
         <td>${contact || '-'}</td>
-        <td>${App.formatDate(user.created_at)}</td>
+        <td><span data-created-at="${App.escapeHtml(user.created_at)}">${App.formatDate(user.created_at)}</span></td>
         <td>
           ${canDelete
             ? `<button class="btn btn-danger btn-sm" onclick="deleteUser('${user.id}')">${App.escapeHtml(i18n.t('btn_delete'))}</button>`
@@ -168,6 +172,12 @@ function renderUsers(users) {
         </td>
       </tr>`;
   }).join('');
+}
+
+function refreshTimestamps() {
+  document.querySelectorAll('[data-created-at]').forEach(function (el) {
+    el.textContent = App.formatDate(el.dataset.createdAt);
+  });
 }
 
 async function deleteUser(userId) {
