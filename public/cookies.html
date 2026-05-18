@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Politica de Cookie-uri - Camp Community</title>
+  <meta name="description" content="Politica de cookie-uri și stocare locală Camp Community.">
+  <link rel="icon" type="image/png" href="/media/logo_camp.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="header-logo-img">
+      <img src="/media/logo_camp.png" alt="Camp Community" class="header-logo-pic">
+    </a>
+    <a href="index.html" class="header-title-group">
+      <div class="header-title">Camp Community</div>
+      <div class="header-subtitle" data-i18n="header_subtitle">Planifică · Organizează · Distrează-te</div>
+    </a>
+    <div class="header-actions">
+      <div class="lang-dropdown">
+        <button class="lang-current" onclick="i18n.toggleDropdown(this.closest('.lang-dropdown'))">🇷🇴 RO</button>
+        <div class="lang-options">
+          <button class="lang-option" data-lang="ro" onclick="i18n.setLang('ro')">🇷🇴 RO</button>
+          <button class="lang-option" data-lang="ru" onclick="i18n.setLang('ru')">🇷🇺 RU</button>
+          <button class="lang-option" data-lang="en" onclick="i18n.setLang('en')">🇬🇧 ENG</button>
+        </div>
+      </div>
+      <a href="index.html" class="btn btn-secondary" data-i18n="btn_back">← Înapoi</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="static-page">
+    <h1 data-i18n="cookies_h1">Politica de Cookie-uri</h1>
+    <p class="static-lead" data-i18n="cookies_lead">Camp Community folosește stocare locală în browser pentru a-ți oferi o experiență mai bună. Îți explicăm exact ce anume și de ce.</p>
+    <p class="static-date"><span data-i18n="cookies_updated">Ultima actualizare:</span> <span class="footer-year"></span></p>
+
+    <div class="static-card">
+
+      <h2 style="margin-top:0" data-i18n="cookies_s1">1. Ce este stocarea locală?</h2>
+      <p data-i18n="cookies_p1">Spre deosebire de cookie-urile clasice de tracking, Camp Community folosește sessionStorage și localStorage — mecanisme mai sigure care nu trimit date automat la server la fiecare cerere HTTP.</p>
+
+      <h2 data-i18n="cookies_s2">2. Ce date stocăm?</h2>
+      <p data-i18n="cookies_p2">Folosim două tipuri de stocare:</p>
+
+      <p style="margin-bottom:.35rem"><strong data-i18n="cookies_sub1">Stocare de sesiune (sessionStorage) — se șterge automat când închizi browser-ul:</strong></p>
+      <ul>
+        <li data-i18n="cookies_li1">Token de autentificare JWT — menține sesiunea activă cât timp browser-ul e deschis</li>
+        <li data-i18n="cookies_li2">Datele profilului tău (nume, rol, cod tabără) — pentru afișare în interfață</li>
+      </ul>
+
+      <p style="margin-top:1rem;margin-bottom:.35rem"><strong data-i18n="cookies_sub2">Stocare locală (localStorage) — persistă între sesiuni:</strong></p>
+      <ul>
+        <li data-i18n="cookies_li3">Preferința de limbă (cc_lang) — pentru a afișa site-ul în limba aleasă</li>
+        <li data-i18n="cookies_li4">Lista ideilor votate (cc_voted_*) — pentru a nu vota de două ori aceeași idee</li>
+        <li data-i18n="cookies_li5">Consimțământul tău pentru stocarea locală (cc_cookie_consent)</li>
+      </ul>
+
+      <h2 data-i18n="cookies_s3">3. Cookie-uri de tracking sau publicitate</h2>
+      <p data-i18n="cookies_p3">Camp Community NU folosește cookie-uri de tracking, publicitate, analiză sau rețele sociale. Nu integrăm Google Analytics, Facebook Pixel sau alte servicii de urmărire a comportamentului.</p>
+
+      <h2 data-i18n="cookies_s4">4. Resurse externe</h2>
+      <p data-i18n="cookies_p4">Singura resursă externă încărcată este fontul Google Fonts (Nunito) pentru design. Această cerere poate genera un cookie Google în browser. Nu avem control asupra politicii Google pentru această resursă.</p>
+
+      <h2 data-i18n="cookies_s5">5. Controlul datelor tale</h2>
+      <p data-i18n="cookies_p5">Poți șterge oricând datele stocate din setările browser-ului tău:</p>
+      <ul>
+        <li data-i18n="cookies_li6">Chrome / Edge: Setări → Confidențialitate → Șterge datele de navigare → Fișiere cookie și date site</li>
+        <li data-i18n="cookies_li7">Firefox: Preferințe → Confidențialitate → Gestionare date → Site-uri</li>
+        <li data-i18n="cookies_li8">Safari: Preferințe → Confidențialitate → Gestionare date site-uri</li>
+      </ul>
+      <p data-i18n="cookies_p6">Dacă ștergi sessionStorage, vei fi deconectat. Dacă ștergi localStorage, preferința de limbă și voturile vor fi resetate.</p>
+
+      <h2 data-i18n="cookies_s6">6. Consimțământ</h2>
+      <p data-i18n="cookies_p7">Prin apăsarea „Acceptă toate" ești de acord cu stocarea preferințelor locale (limbă, voturi). Sesiunea de autentificare este necesară pentru funcționarea platformei și nu poate fi dezactivată.</p>
+
+      <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.25rem">
+        <button class="btn btn-success" onclick="CookieConsent.accept();this.textContent='✅ Salvat!'">Acceptă toate</button>
+        <button class="btn btn-secondary" onclick="CookieConsent.necessary();this.textContent='✅ Salvat!'">Doar necesare</button>
+        <button class="btn btn-ghost" onclick="CookieConsent.reset();this.textContent='✅ Resetat!'">Resetează preferința</button>
+      </div>
+
+      <h2 data-i18n="cookies_s7">7. Modificări</h2>
+      <p data-i18n="cookies_p8">Ne rezervăm dreptul de a actualiza această politică. Versiunea curentă este întotdeauna disponibilă pe această pagină.</p>
+
+      <h2 data-i18n="cookies_s8">8. Contact</h2>
+      <p><span data-i18n="cookies_p9a">Pentru orice întrebare legată de cookie-uri, contactează-ne prin pagina</span> <a href="about.html" data-i18n="footer_about">Despre noi</a>.</p>
+
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="about.html" data-i18n="footer_about">Despre noi</a>
+    <a href="privacy.html" data-i18n="footer_privacy">Confidențialitate</a>
+    <a href="terms.html" data-i18n="footer_terms">Termeni și condiții</a>
+    <a href="cookies.html" data-i18n="footer_cookies">Cookie-uri</a>
+  </div>
+  <span class="footer-copy">Camp Community &copy; <span class="footer-year"></span></span>
+</footer>
+
+<script>
+document.querySelectorAll('.footer-year').forEach(el => el.textContent = new Date().getFullYear());
+</script>
+<div class="toast-container" id="toast-container"></div>
+<script src="i18n.js"></script>
+<script src="cookies.js"></script>
+</body>
+</html>

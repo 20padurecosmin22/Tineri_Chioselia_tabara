@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Tabară - Camp Community</title>
+  <link rel="icon" type="image/png" href="/media/logo_camp.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Ecran de autentificare admin -->
+<div id="admin-login-screen" class="admin-login-wrap">
+  <div class="admin-login-card admin-login-card-wide">
+    <img src="/media/logo_camp.png" alt="Camp Community" class="admin-login-logo">
+    <h1 class="admin-login-title">Camp Community</h1>
+    <div class="lang-dropdown" style="margin-bottom:1.25rem">
+      <button class="lang-current" onclick="i18n.toggleDropdown(this.closest('.lang-dropdown'))">🇷🇴 RO</button>
+      <div class="lang-options" style="left:50%;right:auto;transform:translateX(-50%)">
+        <button class="lang-option" data-lang="ro" onclick="i18n.setLang('ro')">🇷🇴 RO</button>
+        <button class="lang-option" data-lang="ru" onclick="i18n.setLang('ru')">🇷🇺 RU</button>
+        <button class="lang-option" data-lang="en" onclick="i18n.setLang('en')">🇬🇧 ENG</button>
+      </div>
+    </div>
+    <p class="admin-login-sub" data-i18n="admin_login_sub">Creează contul principal al taberei sau intră în dashboard-ul taberei tale.</p>
+
+    <div class="modal-tabs" style="margin-bottom:1.5rem">
+      <button class="modal-tab active" id="tab-login" onclick="switchAdminTab('login')" data-i18n="tab_login">Intră</button>
+      <button class="modal-tab" id="tab-create" onclick="switchAdminTab('create')" data-i18n="tab_create">Creează tabăra</button>
+    </div>
+
+    <div id="admin-error" class="alert alert-error" style="display:none;text-align:left"></div>
+
+    <!-- Form autentificare -->
+    <form id="admin-login-form" onsubmit="handleAdminLogin(event)">
+      <div class="form-group" style="text-align:left">
+        <label class="form-label" for="admin-name-input" data-i18n="admin_uname_label">Nume utilizator</label>
+        <input type="text" id="admin-name-input" class="form-input" data-i18n-ph="admin_uname_ph" placeholder="Numele administratorului" required>
+      </div>
+      <div class="form-group" style="text-align:left">
+        <label class="form-label" for="admin-pin-input" data-i18n="admin_pin_label">PIN administrator</label>
+        <input type="password" id="admin-pin-input" class="form-input" data-i18n-ph="admin_pin_ph" placeholder="PIN-ul contului principal" required>
+      </div>
+      <div style="text-align:center;margin-top:.75rem">
+        <button type="submit" id="admin-login-btn" class="btn btn-success btn-lg" data-i18n="btn_enter_dash">Intră în dashboard</button>
+      </div>
+    </form>
+
+    <!-- Form creare tabara -->
+    <form id="camp-create-form" onsubmit="handleCampCreate(event)" style="display:none;text-align:left">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="camp-name"><span data-i18n="camp_name_label">Numele taberei</span> <span class="required">*</span></label>
+          <input type="text" id="camp-name" class="form-input" data-i18n-ph="camp_name_ph" placeholder="ex: Tabăra Tinerilor 2026" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="camp-code"><span data-i18n="camp_code_label">Cod unic tabăra</span> <span class="required">*</span></label>
+          <input type="text" id="camp-code" class="form-input" data-i18n-ph="camp_code_ph" placeholder="ex: TINERI2026" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="admin-username"><span data-i18n="admin_fname_label">Nume utilizator</span> <span class="required">*</span></label>
+          <input type="text" id="admin-username" class="form-input" data-i18n-ph="admin_fname_ph" placeholder="ex: admin-tineri" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="admin-full-name"><span data-i18n="admin_fullname_label">Nume prenume</span> <span class="required">*</span></label>
+          <input type="text" id="admin-full-name" class="form-input" data-i18n-ph="admin_fullname_ph" placeholder="ex: Ion Popescu" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="admin-phone"><span data-i18n="admin_phone_label">Nr. telefon</span> <span class="required">*</span></label>
+          <input type="tel" id="admin-phone" class="form-input" data-i18n-ph="admin_phone_ph" placeholder="+373..." required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="admin-email"><span data-i18n="admin_email_label">Poștă electronică</span> <span class="required">*</span></label>
+          <input type="email" id="admin-email" class="form-input" data-i18n-ph="admin_email_ph" placeholder="nume@email.com" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="admin-create-pin"><span data-i18n="admin_cpin_label">PIN administrator</span> <span class="required">*</span></label>
+        <input type="password" id="admin-create-pin" class="form-input" data-i18n-ph="admin_cpin_ph" placeholder="Minim 8 caractere, o cifră și un simbol" required>
+        <p class="form-hint" data-i18n="admin_cpin_hint">Exemplu format: Tabara26! — PIN-ul trebuie memorat pentru autentificare.</p>
+      </div>
+      <div style="text-align:center;margin-top:.75rem">
+        <button type="submit" id="camp-create-btn" class="btn btn-success btn-lg" data-i18n="btn_create_camp">Creează contul taberei</button>
+      </div>
+    </form>
+
+    <p style="margin-top:1.5rem;font-size:.82rem;color:var(--text-muted)">
+      <a href="index.html" style="font-weight:700" data-i18n="back_link">← Înapoi la pagina principală</a>
+    </p>
+  </div>
+</div>
+
+<!-- Dashboard admin -->
+<div id="admin-dashboard" style="display:none">
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="header-logo-img">
+        <img src="/media/logo_camp.png" alt="Camp Community" class="header-logo-pic">
+      </a>
+      <a href="index.html" class="header-title-group">
+        <div class="header-title" data-i18n="dash_title">Dashboard Tabără</div>
+        <div class="header-subtitle" id="admin-camp-subtitle">Camp Community</div>
+      </a>
+      <div class="header-actions">
+        <div class="lang-dropdown">
+          <button class="lang-current" onclick="i18n.toggleDropdown(this.closest('.lang-dropdown'))">🇷🇴 RO</button>
+          <div class="lang-options">
+            <button class="lang-option" data-lang="ro" onclick="i18n.setLang('ro')">🇷🇴 RO</button>
+            <button class="lang-option" data-lang="ru" onclick="i18n.setLang('ru')">🇷🇺 RU</button>
+            <button class="lang-option" data-lang="en" onclick="i18n.setLang('en')">🇬🇧 ENG</button>
+          </div>
+        </div>
+        <span class="user-chip" id="admin-user-chip"></span>
+        <a href="index.html" class="btn btn-header-secondary" data-i18n="btn_main">Pagina principală</a>
+        <button class="btn btn-secondary" onclick="adminLogout()" data-i18n="admin_logout">Ieși</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="admin-container">
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-card total">
+        <span class="stat-icon">👥</span>
+        <div class="stat-number" id="stat-users">-</div>
+        <div class="stat-label" data-i18n="stat_accounts">Conturi</div>
+      </div>
+      <div class="stat-card users">
+        <span class="stat-icon">🙋</span>
+        <div class="stat-number" id="stat-leaders">-</div>
+        <div class="stat-label" data-i18n="stat_leaders">Lideri</div>
+      </div>
+      <div class="stat-card selected">
+        <span class="stat-icon">🛡️</span>
+        <div class="stat-number" id="stat-admins">-</div>
+        <div class="stat-label" data-i18n="stat_admins">Administratori</div>
+      </div>
+      <div class="stat-card total">
+        <span class="stat-icon">💡</span>
+        <div class="stat-number" id="stat-ideas">-</div>
+        <div class="stat-label" data-i18n="stat_ideas">Idei</div>
+      </div>
+      <div class="stat-card votes">
+        <span class="stat-icon">⭐</span>
+        <div class="stat-number" id="stat-votes">-</div>
+        <div class="stat-label" data-i18n="stat_votes">Voturi</div>
+      </div>
+    </div>
+
+    <!-- Tabel utilizatori -->
+    <div class="admin-table-section">
+      <div class="table-header">
+        <h2 class="table-title" data-i18n="table_users_title">Conturi create în tabără</h2>
+        <button class="btn btn-outline btn-sm" onclick="loadDashboard()" data-i18n="btn_reload">↻ Reîncarcă</button>
+      </div>
+      <div class="admin-table-wrapper">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th data-i18n="th_username">Nume utilizator</th>
+              <th data-i18n="th_role">Rol</th>
+              <th data-i18n="th_contact">Contact</th>
+              <th data-i18n="th_created">Creat</th>
+              <th data-i18n="th_actions">Acțiuni</th>
+            </tr>
+          </thead>
+          <tbody id="users-table-body">
+            <tr><td colspan="5" style="text-align:center;padding:2rem;color:var(--text-muted)" data-i18n="loading_msg">Se încarcă...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Tabel idei -->
+    <div class="admin-table-section" style="margin-top:1.5rem">
+      <div class="table-header">
+        <h2 class="table-title" data-i18n="table_ideas_title">Idei din tabără</h2>
+        <div class="table-filters">
+          <button class="filter-btn active" data-status="toate" onclick="filterIdeas('toate', this)" data-i18n="filter_all">Toate</button>
+          <button class="filter-btn" data-status="pending" onclick="filterIdeas('pending', this)" data-i18n="filter_pending">În așteptare</button>
+          <button class="filter-btn" data-status="selected" onclick="filterIdeas('selected', this)" data-i18n="filter_selected">Selectate</button>
+          <button class="filter-btn" data-status="rejected" onclick="filterIdeas('rejected', this)" data-i18n="filter_rejected">Respinse</button>
+        </div>
+      </div>
+      <div class="admin-table-wrapper">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th data-i18n="th_activity">Activitate</th>
+              <th data-i18n="th_author">Autor</th>
+              <th data-i18n="th_category">Categorie</th>
+              <th data-i18n="th_votes">Voturi</th>
+              <th data-i18n="th_status">Status</th>
+              <th data-i18n="th_actions">Acțiuni</th>
+            </tr>
+          </thead>
+          <tbody id="ideas-table-body">
+            <tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--text-muted)" data-i18n="loading_msg">Se încarcă...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-links">
+      <a href="about.html" data-i18n="footer_about">Despre noi</a>
+      <a href="privacy.html" data-i18n="footer_privacy">Confidențialitate</a>
+      <a href="terms.html" data-i18n="footer_terms">Termeni și condiții</a>
+      <a href="cookies.html" data-i18n="footer_cookies">Cookie-uri</a>
+    </div>
+    <span class="footer-copy">Camp Community &copy; <span class="footer-year"></span></span>
+  </footer>
+  <script>
+  document.querySelectorAll('.footer-year').forEach(el => el.textContent = new Date().getFullYear());
+  </script>
+</div>
+
+<div class="toast-container" id="toast-container"></div>
+
+<script src="i18n.js"></script>
+<script src="app.js"></script>
+<script src="admin-logic.js"></script>
+<script src="cookies.js"></script>
+</body>
+</html>

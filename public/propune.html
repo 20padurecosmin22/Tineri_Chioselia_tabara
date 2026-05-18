@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Propune o activitate - Camp Community</title>
+  <link rel="icon" type="image/png" href="/media/logo_camp.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="header-logo-img">
+      <img src="/media/logo_camp.png" alt="Camp Community" class="header-logo-pic">
+    </a>
+    <a href="index.html" class="header-title-group">
+      <div class="header-title">Camp Community</div>
+      <div class="header-subtitle" data-i18n="header_subtitle">Planifică · Organizează · Distrează-te</div>
+    </a>
+    <div class="header-actions">
+      <div class="lang-dropdown">
+        <button class="lang-current" onclick="i18n.toggleDropdown(this.closest('.lang-dropdown'))">🇷🇴 RO</button>
+        <div class="lang-options">
+          <button class="lang-option" data-lang="ro" onclick="i18n.setLang('ro')">🇷🇴 RO</button>
+          <button class="lang-option" data-lang="ru" onclick="i18n.setLang('ru')">🇷🇺 RU</button>
+          <button class="lang-option" data-lang="en" onclick="i18n.setLang('en')">🇬🇧 ENG</button>
+        </div>
+      </div>
+      <span id="header-user-chip" class="user-chip" style="display:none"></span>
+      <a href="index.html" class="btn btn-secondary" data-i18n="btn_back">← Înapoi</a>
+      <button id="header-login-btn" class="btn btn-primary" onclick="App.showLoginModal('', onLoginSuccess)" data-i18n="btn_login">Autentificare</button>
+      <button id="header-logout-btn" class="btn btn-secondary" onclick="App.handleLogout()" style="display:none" data-i18n="btn_logout">Ieși</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="page-container">
+    <div class="page-header">
+      <span class="page-icon">💡</span>
+      <h1 class="page-title" data-i18n="page_propose_title">Propune o activitate</h1>
+      <p class="page-subtitle" data-i18n="page_propose_subtitle">Propunerea va fi vizibilă doar pentru conturile înscrise cu același cod de tabără.</p>
+    </div>
+
+    <div id="auth-wall" style="display:none">
+      <div class="form-card" style="text-align:center;padding:3rem 2rem">
+        <div style="font-size:2.5rem;margin-bottom:1rem">🔒</div>
+        <h2 style="margin-bottom:.5rem;font-weight:800" data-i18n="auth_wall_h2">Autentificare necesară</h2>
+        <p style="color:var(--text-muted);margin-bottom:1.5rem;font-size:.93rem" data-i18n="auth_wall_p">Ai nevoie de profil de lider și codul taberei pentru a propune o activitate.</p>
+        <button class="btn btn-success btn-lg" onclick="App.showLoginModal('', onLoginSuccess)" data-i18n="auth_wall_btn">Intră / Creează profil</button>
+      </div>
+    </div>
+
+    <div id="form-section" style="display:none">
+      <div class="form-card">
+        <div id="submit-success" class="alert alert-success" style="display:none">
+          <span data-i18n="success_submit">✅ Ideea a fost trimisă cu succes!</span>
+          <a href="index.html" style="margin-left:.5rem;font-weight:700;color:var(--success-dark)" data-i18n="success_link">Vezi toate ideile →</a>
+        </div>
+        <div id="form-error" class="alert alert-error" style="display:none"></div>
+
+        <form id="propose-form" onsubmit="handleProposeSubmit(event)">
+          <div class="form-group">
+            <label class="form-label" for="idea-title"><span data-i18n="form_title_label">Titlul activității</span> <span class="required">*</span></label>
+            <input type="text" id="idea-title" class="form-input" data-i18n-ph="form_title_ph" placeholder="ex: Seară de jocuri pe echipe" maxlength="100" required>
+            <p class="form-hint" data-i18n="form_title_hint">Scurt și descriptiv, maxim 100 caractere.</p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label"><span data-i18n="form_cat_label">Categoria</span> <span class="required">*</span></label>
+            <div class="category-grid">
+              <input type="radio" name="category" id="cat-sp" value="spiritual" class="cat-option" required>
+              <label for="cat-sp" class="cat-option-label"><span class="cat-emoji">🙏</span><span data-i18n="cat_spiritual_short">Spiritual</span></label>
+              <input type="radio" name="category" id="cat-jo" value="jocuri" class="cat-option">
+              <label for="cat-jo" class="cat-option-label"><span class="cat-emoji">🎮</span><span data-i18n="cat_jocuri_short">Jocuri</span></label>
+              <input type="radio" name="category" id="cat-at" value="ateliere" class="cat-option">
+              <label for="cat-at" class="cat-option-label"><span class="cat-emoji">🎨</span><span data-i18n="cat_ateliere_short">Ateliere</span></label>
+              <input type="radio" name="category" id="cat-st" value="sport" class="cat-option">
+              <label for="cat-st" class="cat-option-label"><span class="cat-emoji">⚽</span><span data-i18n="cat_sport_short">Sport</span></label>
+              <input type="radio" name="category" id="cat-mu" value="muzica" class="cat-option">
+              <label for="cat-mu" class="cat-option-label"><span class="cat-emoji">🎵</span><span data-i18n="cat_muzica_short">Muzică</span></label>
+              <input type="radio" name="category" id="cat-al" value="altele" class="cat-option">
+              <label for="cat-al" class="cat-option-label"><span class="cat-emoji">✨</span><span data-i18n="cat_altele_short">Altele</span></label>
+            </div>
+          </div>
+
+          <div class="form-section-title" style="margin-top:1.75rem" data-i18n="section_details">Detalii activitate</div>
+
+          <div class="form-group">
+            <label class="form-label" for="idea-description"><span data-i18n="form_desc_label">Descriere detaliată</span> <span class="required">*</span></label>
+            <textarea id="idea-description" class="form-textarea" rows="5" data-i18n-ph="form_desc_ph" placeholder="Cum funcționează, cine participă, ce trebuie pregătit..." maxlength="1000" required></textarea>
+            <p class="form-hint"><span id="desc-counter">0</span>/1000 caractere</p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="idea-materials" data-i18n="form_materials_label">Materiale necesare</label>
+            <textarea id="idea-materials" class="form-textarea" rows="2" data-i18n-ph="form_materials_ph" placeholder="ex: foi, pixuri, mingi, boxă..." maxlength="300"></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="idea-duration" data-i18n="form_duration_label">Durată estimată</label>
+              <input type="text" id="idea-duration" class="form-input" data-i18n-ph="form_duration_ph" placeholder="ex: 2 ore" maxlength="50">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="idea-participants" data-i18n="form_participants_label">Nr. max participanți</label>
+              <input type="number" id="idea-participants" class="form-input" data-i18n-ph="form_participants_ph" placeholder="ex: 20" min="1" max="500">
+            </div>
+          </div>
+
+          <div style="margin-top:1.75rem;display:flex;gap:1rem;flex-wrap:wrap;justify-content:center">
+            <button type="submit" id="submit-btn" class="btn btn-success btn-lg" data-i18n="btn_submit">Trimite ideea</button>
+            <a href="index.html" class="btn btn-ghost btn-lg" data-i18n="btn_cancel">Anulează</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="about.html" data-i18n="footer_about">Despre noi</a>
+    <a href="privacy.html" data-i18n="footer_privacy">Confidențialitate</a>
+    <a href="terms.html" data-i18n="footer_terms">Termeni și condiții</a>
+    <a href="cookies.html" data-i18n="footer_cookies">Cookie-uri</a>
+  </div>
+  <span class="footer-copy">Camp Community &copy; <span class="footer-year"></span></span>
+</footer>
+<script>
+document.querySelectorAll('.footer-year').forEach(el => el.textContent = new Date().getFullYear());
+</script>
+
+<div class="toast-container" id="toast-container"></div>
+
+<script src="i18n.js"></script>
+<script src="app.js"></script>
+<script src="cookies.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  App.updateHeaderAuth();
+  checkAuthAndShowForm();
+  const description = document.getElementById('idea-description');
+  const counter = document.getElementById('desc-counter');
+  if (description && counter) {
+    description.addEventListener('input', function () {
+      counter.textContent = description.value.length;
+    });
+  }
+});
+
+function checkAuthAndShowForm() {
+  const wall = document.getElementById('auth-wall');
+  const formSection = document.getElementById('form-section');
+  if (App.isLoggedIn()) {
+    wall.style.display = 'none';
+    formSection.style.display = 'block';
+  } else {
+    wall.style.display = 'block';
+    formSection.style.display = 'none';
+  }
+}
+
+function onLoginSuccess() {
+  App.updateHeaderAuth();
+  checkAuthAndShowForm();
+}
+
+async function handleProposeSubmit(event) {
+  event.preventDefault();
+  const errorEl = document.getElementById('form-error');
+  const button = document.getElementById('submit-btn');
+  const successEl = document.getElementById('submit-success');
+  App.clearFormError(errorEl);
+
+  const title = document.getElementById('idea-title').value.trim();
+  const categoryEl = document.querySelector('input[name="category"]:checked');
+  const description = document.getElementById('idea-description').value.trim();
+  const materials = document.getElementById('idea-materials').value.trim();
+  const duration = document.getElementById('idea-duration').value.trim();
+  const maxParticipants = document.getElementById('idea-participants').value;
+
+  if (!title) return showErr(errorEl, i18n.t('err_title'));
+  if (!categoryEl) return showErr(errorEl, i18n.t('err_cat'));
+  if (!description) return showErr(errorEl, i18n.t('err_desc'));
+
+  button.disabled = true;
+  button.textContent = i18n.t('submitting');
+  const idea = await App.handleSubmitIdea({
+    title,
+    category: categoryEl.value,
+    description,
+    materials: materials || null,
+    duration: duration || null,
+    max_participants: maxParticipants ? parseInt(maxParticipants, 10) : null,
+  }, errorEl);
+
+  if (idea) {
+    document.getElementById('propose-form').reset();
+    document.getElementById('desc-counter').textContent = '0';
+    successEl.style.display = 'flex';
+    successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+  button.disabled = false;
+  button.textContent = i18n.t('btn_submit');
+}
+
+function showErr(element, message) {
+  element.innerHTML = `⚠️ ${App.escapeHtml(message)}`;
+  element.style.display = 'flex';
+  element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+</script>
+</body>
+</html>

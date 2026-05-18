@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Camp Community</title>
+  <meta name="description" content="Platforma online pentru planificarea si organizarea activitatilor de tabara.">
+  <link rel="icon" type="image/png" href="/media/logo_camp.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="header-logo-img">
+      <img src="/media/logo_camp.png" alt="Camp Community" class="header-logo-pic">
+    </a>
+    <a href="index.html" class="header-title-group">
+      <div class="header-title">Camp Community</div>
+      <div class="header-subtitle" data-i18n="header_subtitle">Planifică · Organizează · Distrează-te</div>
+    </a>
+    <div class="header-actions">
+      <div class="lang-dropdown">
+        <button class="lang-current" onclick="i18n.toggleDropdown(this.closest('.lang-dropdown'))">🇷🇴 RO</button>
+        <div class="lang-options">
+          <button class="lang-option" data-lang="ro" onclick="i18n.setLang('ro')">🇷🇴 RO</button>
+          <button class="lang-option" data-lang="ru" onclick="i18n.setLang('ru')">🇷🇺 RU</button>
+          <button class="lang-option" data-lang="en" onclick="i18n.setLang('en')">🇬🇧 ENG</button>
+        </div>
+      </div>
+      <span id="header-user-chip" class="user-chip" style="display:none"></span>
+      <button id="header-login-btn" class="btn btn-header-secondary" onclick="App.showLoginModal('', onLoginSuccess)" data-i18n="btn_login">Autentificare</button>
+      <a href="propune.html" id="header-propose-btn" class="btn btn-primary" style="display:none" data-i18n="btn_propose">+ Propune</a>
+      <button id="header-logout-btn" class="btn btn-secondary" onclick="App.handleLogout()" style="display:none" data-i18n="btn_logout">Ieși</button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO cu video -->
+<section class="hero hero-video">
+  <video
+    class="hero-video-el"
+    src="/media/header_video.mp4"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="auto"
+  ></video>
+  <div class="hero-video-overlay"></div>
+  <div class="hero-content">
+    <h1>Camp Community</h1>
+    <p data-i18n="hero_p">Planifică activitățile taberei tale împreună</p>
+  </div>
+</section>
+
+<main class="main-content">
+  <section id="auth-gate" class="auth-gate-card" style="display:none">
+    <h2 data-i18n="auth_gate_h2">Intră în comunitatea taberei tale</h2>
+    <p data-i18n="auth_gate_p">Fiecare tabăra are un cod unic. După autentificare vezi doar ideile, voturile și conturile din tabăra ta.</p>
+    <button class="btn btn-success btn-lg" onclick="App.showLoginModal('', onLoginSuccess)" data-i18n="auth_gate_btn">Intră / Creează profil</button>
+  </section>
+
+  <section id="community-content" style="display:none">
+    <div class="filters-section">
+      <div class="filters-row">
+        <span class="filter-label" data-i18n="filter_label">Categorie</span>
+        <div class="category-filters" id="category-filters">
+          <button class="cat-btn active" data-cat="toate" onclick="filterByCategory('toate', this)" data-i18n="cat_all">Toate</button>
+          <button class="cat-btn" data-cat="spiritual" onclick="filterByCategory('spiritual', this)" data-i18n="cat_spiritual">🙏 Spiritual</button>
+          <button class="cat-btn" data-cat="jocuri" onclick="filterByCategory('jocuri', this)" data-i18n="cat_jocuri">🎮 Jocuri</button>
+          <button class="cat-btn" data-cat="ateliere" onclick="filterByCategory('ateliere', this)" data-i18n="cat_ateliere">🎨 Ateliere</button>
+          <button class="cat-btn" data-cat="sport" onclick="filterByCategory('sport', this)" data-i18n="cat_sport">⚽ Sport</button>
+          <button class="cat-btn" data-cat="muzica" onclick="filterByCategory('muzica', this)" data-i18n="cat_muzica">🎵 Muzică</button>
+          <button class="cat-btn" data-cat="altele" onclick="filterByCategory('altele', this)" data-i18n="cat_altele">✨ Altele</button>
+        </div>
+        <select class="sort-select" id="sort-select" onchange="sortIdeas(this.value)">
+          <option value="votes" data-i18n="sort_votes">Cele mai votate</option>
+          <option value="new" data-i18n="sort_new">Cele mai noi</option>
+        </select>
+      </div>
+    </div>
+    <p class="ideas-count" id="ideas-count"></p>
+    <div class="ideas-grid" id="ideas-grid">
+      <div class="loading" style="grid-column:1/-1">
+        <div class="spinner"></div>
+        <p data-i18n="loading">Se încarcă ideile...</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<button class="fab" id="fab-btn" onclick="handleFabClick()" data-i18n-title="fab_title" title="Propune o activitate" style="display:none">+</button>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="about.html" data-i18n="footer_about">Despre noi</a>
+    <a href="privacy.html" data-i18n="footer_privacy">Confidențialitate</a>
+    <a href="terms.html" data-i18n="footer_terms">Termeni și condiții</a>
+    <a href="cookies.html" data-i18n="footer_cookies">Cookie-uri</a>
+  </div>
+  <span class="footer-copy">Camp Community &copy; <span class="footer-year"></span></span>
+</footer>
+<script>
+document.querySelectorAll('.footer-year').forEach(el => el.textContent = new Date().getFullYear());
+</script>
+
+<div class="toast-container" id="toast-container"></div>
+
+<script src="i18n.js"></script>
+<script src="app.js"></script>
+<script src="cookies.js"></script>
+<script>
+let allIdeas = [];
+let currentCategory = 'toate';
+let currentSort = 'votes';
+let votedIds = new Set();
+
+document.addEventListener('DOMContentLoaded', async function () {
+  App.updateHeaderAuth();
+  await refreshPageState();
+});
+
+async function refreshPageState() {
+  const loggedIn = App.isLoggedIn();
+  document.getElementById('auth-gate').style.display = loggedIn ? 'none' : 'block';
+  document.getElementById('community-content').style.display = loggedIn ? 'block' : 'none';
+  document.getElementById('fab-btn').style.display = loggedIn ? 'flex' : 'none';
+  document.getElementById('header-propose-btn').style.display = loggedIn ? 'inline-flex' : 'none';
+  if (loggedIn) {
+    votedIds = App.getVotedIds();
+    await loadIdeas();
+  }
+}
+
+async function onLoginSuccess() {
+  App.updateHeaderAuth();
+  await refreshPageState();
+}
+
+async function loadIdeas() {
+  try {
+    const params = new URLSearchParams();
+    if (currentCategory !== 'toate') params.set('category', currentCategory);
+    params.set('sort', currentSort);
+    allIdeas = await App.apiFetch('/api/ideas?' + params.toString());
+    renderPage();
+  } catch (error) {
+    document.getElementById('ideas-grid').innerHTML = `
+      <div class="empty-state" style="grid-column:1/-1">
+        <span class="empty-icon">⚠️</span>
+        <h3>${App.escapeHtml(i18n.t('error_load'))}</h3>
+        <p>${App.escapeHtml(error.message)}</p>
+        <button class="btn btn-outline" onclick="loadIdeas()" style="margin-top:1rem" data-i18n="btn_retry">${App.escapeHtml(i18n.t('btn_retry'))}</button>
+      </div>`;
+  }
+}
+
+function renderPage() {
+  const count = allIdeas.length;
+  const user = App.getCurrentUser();
+  document.getElementById('ideas-count').textContent =
+    `${count === 1 ? '1 idee' : count + ' idei'} în ${user && user.camp_name ? user.camp_name : i18n.t('your_camp')}`;
+  App.renderIdeas(allIdeas, 'ideas-grid', votedIds);
+}
+
+function filterByCategory(category, button) {
+  currentCategory = category;
+  document.querySelectorAll('.cat-btn').forEach(item => item.classList.remove('active'));
+  button.classList.add('active');
+  loadIdeas();
+}
+function sortIdeas(sort) {
+  currentSort = sort;
+  loadIdeas();
+}
+function handleFabClick() {
+  if (!App.isLoggedIn()) App.showLoginModal(i18n.t('err_auth_propose'), onLoginSuccess);
+  else window.location.href = 'propune.html';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Politica de confidențialitate - Camp Community</title>
+  <meta name="description" content="Politica de confidențialitate Camp Community.">
+  <link rel="icon" type="image/png" href="/media/logo_camp.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="header-logo-img">
+      <img src="/media/logo_camp.png" alt="Camp Community" class="header-logo-pic">
+    </a>
+    <a href="index.html" class="header-title-group">
+      <div class="header-title">Camp Community</div>
+      <div class="header-subtitle" data-i18n="header_subtitle">Planifică · Organizează · Distrează-te</div>
+    </a>
+    <div class="header-actions">
+      <div class="lang-dropdown">
+        <button class="lang-current" onclick="i18n.toggleDropdown(this.closest('.lang-dropdown'))">🇷🇴 RO</button>
+        <div class="lang-options">
+          <button class="lang-option" data-lang="ro" onclick="i18n.setLang('ro')">🇷🇴 RO</button>
+          <button class="lang-option" data-lang="ru" onclick="i18n.setLang('ru')">🇷🇺 RU</button>
+          <button class="lang-option" data-lang="en" onclick="i18n.setLang('en')">🇬🇧 ENG</button>
+        </div>
+      </div>
+      <a href="index.html" class="btn btn-secondary" data-i18n="btn_back">← Înapoi</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="static-page">
+    <h1 data-i18n="priv_h1">Politica de confidențialitate</h1>
+    <p class="static-lead" data-i18n="priv_lead">Respectăm confidențialitatea datelor tale și ne angajăm să le protejăm conform celor mai bune practici.</p>
+    <p class="static-date"><span data-i18n="priv_updated">Ultima actualizare:</span> <span class="footer-year"></span></p>
+
+    <div class="static-card">
+
+      <h2 style="margin-top:0" data-i18n="priv_s1">1. Datele pe care le colectăm</h2>
+      <p data-i18n="priv_p1">Camp Community colectează doar datele strict necesare funcționării platformei:</p>
+      <ul>
+        <li data-i18n="priv_li1">Nume de utilizator — ales de tine la înregistrare</li>
+        <li data-i18n="priv_li2">PIN criptat — stocat exclusiv ca hash bcrypt, nu în text clar</li>
+        <li data-i18n="priv_li3">Codul taberei — pentru asocierea contului cu tabăra ta</li>
+        <li data-i18n="priv_li4">Date opționale — nume complet, email, telefon (doar pentru administratori)</li>
+        <li data-i18n="priv_li5">Ideile și voturile tale — conținut generat de tine pe platformă</li>
+      </ul>
+
+      <h2 data-i18n="priv_s2">2. Cum folosim datele</h2>
+      <p data-i18n="priv_p2">Datele colectate sunt folosite exclusiv pentru:</p>
+      <ul>
+        <li data-i18n="priv_li6">Autentificarea ta pe platformă</li>
+        <li data-i18n="priv_li7">Afișarea activității tale în cadrul taberei</li>
+        <li data-i18n="priv_li8">Izolarea datelor între tabere diferite</li>
+        <li data-i18n="priv_li9">Administrarea taberei de către contul admin</li>
+      </ul>
+      <p data-i18n="priv_p3">Nu vindem, nu închiriem și nu împărtășim datele tale cu terțe părți în scopuri comerciale.</p>
+
+      <h2 data-i18n="priv_s3">3. Stocarea datelor</h2>
+      <p data-i18n="priv_p4">Datele sunt stocate local pe serverul platformei într-o bază de date SQLite. Accesul la baza de date este restricționat și protejat. PIN-urile sunt criptate cu algoritmul bcrypt și nu pot fi recuperate în text clar.</p>
+
+      <h2 data-i18n="priv_s4">4. Token de autentificare (JWT)</h2>
+      <p data-i18n="priv_p5">După autentificare, platforma îți emite un token JWT stocat în localStorage al browserului tău. Acest token expiră după 7 zile. Poți revoca accesul oricând prin butonul „Ieși" din header.</p>
+
+      <h2 data-i18n="priv_s5">5. Cookie-uri</h2>
+      <p data-i18n="priv_p6">Camp Community nu folosește cookie-uri de tracking sau de publicitate. Singurele date salvate în browser sunt token-ul de autentificare și lista de voturi exprimate, ambele stocate în localStorage.</p>
+
+      <h2 data-i18n="priv_s6">6. Drepturile tale</h2>
+      <p data-i18n="priv_p7">Ai dreptul să:</p>
+      <ul>
+        <li data-i18n="priv_li10">Soliciți ștergerea contului și a datelor asociate</li>
+        <li data-i18n="priv_li11">Afli ce date deținem despre tine</li>
+        <li data-i18n="priv_li12">Corectezi datele incorecte</li>
+      </ul>
+      <p><span data-i18n="priv_p8a">Pentru orice solicitare, contactează administratorul taberei tale sau fondatorul platformei prin pagina</span> <a href="about.html" data-i18n="footer_about">Despre noi</a>.</p>
+
+      <h2 data-i18n="priv_s7">7. Securitate</h2>
+      <p data-i18n="priv_p9">Implementăm măsuri tehnice pentru protejarea datelor: criptare bcrypt pentru parole, autentificare JWT cu expirare, și izolarea datelor pe baza codului unic de tabără. Nu putem garanta securitatea absolută a oricărui sistem, dar depunem toate eforturile rezonabile pentru protecția datelor tale.</p>
+
+      <h2 data-i18n="priv_s8">8. Modificări ale politicii</h2>
+      <p data-i18n="priv_p10">Ne rezervăm dreptul de a actualiza această politică. Versiunea actuală este întotdeauna disponibilă pe această pagină. Utilizarea continuă a platformei după o modificare reprezintă acceptarea noii politici.</p>
+
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="about.html" data-i18n="footer_about">Despre noi</a>
+    <a href="privacy.html" data-i18n="footer_privacy">Confidențialitate</a>
+    <a href="terms.html" data-i18n="footer_terms">Termeni și condiții</a>
+    <a href="cookies.html" data-i18n="footer_cookies">Cookie-uri</a>
+  </div>
+  <span class="footer-copy">Camp Community &copy; <span class="footer-year"></span></span>
+</footer>
+
+<script>
+document.querySelectorAll('.footer-year').forEach(el => el.textContent = new Date().getFullYear());
+</script>
+<script src="i18n.js"></script>
+<script src="cookies.js"></script>
+</body>
+</html>
