@@ -1,10 +1,17 @@
-# fly.toml app configuration file generated for tineri-chioselia-tabara on 2026-05-18T23:41:46+03:00
+# fly.toml app configuration file generated for tineri-chioselia-tabara on 2026-05-19T11:56:28Z
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
 app = 'tineri-chioselia-tabara'
 primary_region = 'fra'
+
+[build]
+
+[env]
+  DB_PATH = '/data/tabara.db'
+  NODE_ENV = 'production'
+  PORT = '8080'
 
 [[mounts]]
   source = 'data'
@@ -14,7 +21,7 @@ primary_region = 'fra'
   auto_extend_size_limit = '10GB'
 
 [http_service]
-  internal_port = 4000
+  internal_port = 8080
   force_https = true
   auto_stop_machines = 'stop'
   auto_start_machines = true
@@ -26,8 +33,3 @@ primary_region = 'fra'
   cpu_kind = 'shared'
   cpus = 1
   memory_mb = 512
-
-  [env]
-  NODE_ENV = "production"
-  PORT = "8080"
-  DB_PATH = "/data/tabara.db"
